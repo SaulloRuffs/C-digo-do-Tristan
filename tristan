@@ -1,0 +1,154 @@
+import discord
+import secret
+import asyncio
+
+client = discord.Client()
+
+COR =0x690FC3
+token = secret.seu_token()
+msg_id = None
+msg_user = None
+
+
+@client.event()
+async def on_ready():
+    print('BOT ONLINE - Olá Mundo!')
+    print(client.user.name)
+    print(client.user.id)
+    print('--------Ruff-------')
+    await change_presence(game=discord.Game(name="Teste"))
+
+
+@client.event()
+
+async def on_message(message):
+    if message.content.lower().startswith("?class"):
+     embed1 =discord.Embed(
+        title="**Clique no Emoji abaixo e escolha sua classe!(Apenas a Classe do seu main)**",
+        color=COR,
+        description="- Archer = 🏹\n"
+                    "- Assassin  =  🗡 \n"
+                    "- Berserker = 💥\n"
+                    "- Heavy Gunner = 🔫\n"
+                    "- Knight = 🛡\n"
+                    "- Priest = 📓\n"
+                    "- Runeblade = ⚡\n"
+                    "- Wizard = 🔥",)
+
+    if message.content.lower().startswith('?test'):
+        await client.send_message(message.channel, "Olá Mundo, estou vivo!")
+    if message.content.lower().startswith('?ruff'):
+        await client.send_message(message.channel, "Ruff!")
+    if message.content.lower().startswith('?sobre'):
+        await client.send_message(message.channel,"Bot Criado por Ruff, para Testes!")
+
+    botmsg = await client.send_message(message.channel, embed=embed1)
+
+    await client.add_reaction(botmsg, "🏹")
+    await client.add_reaction(botmsg, "🗡")
+    await client.add_reaction(botmsg, "💥")
+    await client.add_reaction(botmsg, "🔫")
+    await client.add_reaction(botmsg, "🛡")
+    await client.add_reaction(botmsg, "📓")
+    await client.add_reaction(botmsg, "⚡")
+    await client.add_reaction(botmsg, "🔥")
+
+
+
+    global msg_id
+    msg_id = botmsg.id
+
+    global msg_user
+    msg_user = message.author
+
+
+@client.event
+async def on_reaction_add(reaction, user):
+    msg = reaction.message
+
+    if reaction.emoji == "🏹" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Archer", msg.server.roles)
+     await client.add_roles(user, role)
+     print("add")
+
+    if reaction.emoji == "🗡" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Assassin", msg.server.roles)
+     await client.add_roles(user, role)
+     print("add")
+
+    if reaction.emoji == "💥" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Berserker", msg.server.roles)
+     await client.add_roles(user, role)
+     print("add")
+
+    if reaction.emoji == "🔫" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Heavy Gunner", msg.server.roles)
+     await client.add_roles(user, role)
+     print("add")
+
+    if reaction.emoji == "🛡" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Knight", msg.server.roles)
+     await client.add_roles(user, role)
+     print("add")
+
+    if reaction.emoji == "📓" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Priest", msg.server.roles)
+     await client.add_roles(user, role)
+     print("add")
+
+    if reaction.emoji == "⚡" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Runeblade", msg.server.roles)
+     await client.add_roles(user, role)
+     print("add")
+
+    if reaction.emoji == "🔥" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Wizard", msg.server.roles)
+     await client.add_roles(user, role)
+     print("add")
+
+@client.event
+async def on_reaction_remove(reaction, user):
+    msg = reaction.message
+
+    if reaction.emoji == "🏹" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Archer", msg.server.roles)
+     await client.remove_roles(user, role)
+     print("remove")
+
+    if reaction.emoji == "🗡" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Assassin", msg.server.roles)
+     await client.remove_roles(user, role)
+     print("remove")
+
+    if reaction.emoji == "💥" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Berserker", msg.server.roles)
+     await client.remove_roles(user, role)
+     print("remove")
+
+    if reaction.emoji == "🔫" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Heavy Gunner", msg.server.roles)
+     await client.remove_roles(user, role)
+     print("remove")
+
+    if reaction.emoji == "🛡" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Knight", msg.server.roles)
+     await client.remove_roles(user, role)
+     print("remove")
+
+    if reaction.emoji == "📓" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Priest", msg.server.roles)
+     await client.remove_roles(user, role)
+     print("remove")
+
+    if reaction.emoji == "⚡" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Runeblade", msg.server.roles)
+     await client.remove_roles(user, role)
+     print("remove")
+
+    if reaction.emoji == "🔥" and msg.id == msg_id: #and user == msg_user:
+     role = discord.utils.find(lambda r: r.name == "Wizard", msg.server.roles)
+     await client.remove_roles(user, role)
+     print("remove")
+
+
+client.run(token)
